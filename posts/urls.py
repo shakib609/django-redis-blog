@@ -11,20 +11,20 @@ posts_routes.register(
     r'comments',
     CommentViewSet,
     basename='posts-comment',
-    parents_query_lookups=['post'],
+    parents_query_lookups=['post__slug'],
 )
 posts_routes.register(
     r'tags',
     TagViewSet,
     basename='posts-tag',
-    parents_query_lookups=['posts'],
+    parents_query_lookups=['posts__slug'],
 )
 
 tags_routes.register(
     r'posts',
     PostViewSet,
     basename='tags-post',
-    parents_query_lookups=['tags'],
+    parents_query_lookups=['tags__slug'],
 )
 
 urlpatterns = router.urls

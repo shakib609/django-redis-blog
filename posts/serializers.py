@@ -12,7 +12,7 @@ class CommentSerializer(serializers.ModelSerializer):
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
-        fields = '__all__'
+        exclude = ['slug']
 
     def get_tags(self, obj):
         return TagSerializer(obj.tags.all()).data
