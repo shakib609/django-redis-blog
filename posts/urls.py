@@ -4,8 +4,8 @@ from .views import CommentViewSet, PostViewSet, TagViewSet
 
 router = ExtendedSimpleRouter()
 
-posts_routes = router.register(r'posts', PostViewSet, base_name='post')
-tags_routes = router.register(r'tags', TagViewSet, base_name='tag')
+posts_routes = router.register(r'posts', PostViewSet, basename='post')
+tags_routes = router.register(r'tags', TagViewSet, basename='tag')
 
 posts_routes.register(
     r'comments',
