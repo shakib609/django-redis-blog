@@ -9,8 +9,12 @@ class Post(models.Model):
     author = models.ForeignKey(
         get_user_model(),
         on_delete=models.CASCADE,
-        related_name='posts',
     )
+
+    class Meta:
+        ordering = ['-created_at', 'title']
+        default_related_name = 'posts'
+        get_latest_by = '-created_at'
 
     def __str__(self):
         return f'{self.title[:15]} - {self.author}'
@@ -23,17 +27,30 @@ class Tag(models.Model):
         related_name='tags',
     )
 
+    class Meta:
+        ordering = ['name']
+        default_related_name = 'tags'
+
     def __str__(self):
         return self.name
 
 
 class Comment(models.Model):
     content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    author = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.CASCADE,
+    )
     post = models.ForeignKey(
         Post,
         on_delete=models.CASCADE,
-        related_name='comments',
     )
+
+    class Meta:
+        default_related_name = 'comments'
+        ordering = ['-created_at']
+        get_latest_by = '-created_at'
 
     def __str__(self):
         return f'{self.content[:64]} - #PID({self.post.id})'
