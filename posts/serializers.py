@@ -10,9 +10,11 @@ class CommentSerializer(serializers.ModelSerializer):
 
 
 class PostSerializer(serializers.ModelSerializer):
+    slug = serializers.SlugField(read_only=True)
+
     class Meta:
         model = Post
-        exclude = ['slug']
+        fields = '__all__'
 
     def get_tags(self, obj):
         return TagSerializer(obj.tags.all()).data
