@@ -65,11 +65,7 @@ class Comment(models.Model):
 @receiver(pre_save, sender=Post)
 def set_post_slug(sender, instance=None, **kwargs):
     if not instance.slug:
-        slug = slugify(instance.title)[:40] + str(uuid4())[:8]
+        slug = slugify(instance.title)
+        if sender.objects.filter(slug=slug).exists():
+            slug += f'-{str(uuid4())[:8]}'
         instance.slug = slug
-
-
-@receiver(pre_save, sender=Tag)
-def set_tag_slug(sender, instance=None, **kwargs):
-    slug = slugify(instance.slug)[:40]
-    instance.slug = slug
