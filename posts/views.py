@@ -11,13 +11,13 @@ class PostViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     lookup_field = 'slug'
-    permission_classes = [IsAuthorOrReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly, IsAuthorOrReadOnly]
 
 
 class CommentViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
-    permission_classes = [IsAuthorOrReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly, IsAuthorOrReadOnly]
 
 
 class TagViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
