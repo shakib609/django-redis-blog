@@ -2,8 +2,8 @@ from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAdminUser
 from rest_framework_extensions.mixins import NestedViewSetMixin
 
+from common.permissions import IsAuthorOrReadOnly
 from .models import Comment, Post, Tag
-from .permissions import IsAuthorOrReadOnly
 from .serializers import CommentSerializer, PostSerializer, TagSerializer
 
 
