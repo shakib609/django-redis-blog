@@ -24,7 +24,7 @@ SECRET_KEY = 'q10ch-b3m*bsqllbk^!8m17o2-^0$tbt)$agddmskh__)-z=dw'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -152,3 +152,11 @@ REST_FRAMEWORK = {
 INTERNAL_IPS = [
     '127.0.0.1',
 ]
+
+# Django Cache Settings
+CACHES = {
+    'default': {
+        'BACKEND': 'redis_cache.RedisCache',
+        'LOCATION': 'localhost:6379',
+    },
+}

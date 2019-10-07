@@ -1,0 +1,2134 @@
+openapi: 3.0.2
+info:
+  title: ''
+  version: ''
+paths:
+  /api/posts/:
+    get:
+      operationId: listPosts
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type: string
+                    nullable: true
+                  previous:
+                    type: string
+                    nullable: true
+                  results:
+                    type: array
+                    items:
+                      properties:
+                        id:
+                          type: integer
+                          readOnly: true
+                        author:
+                          type: string
+                          readOnly: true
+                        slug:
+                          type: string
+                          readOnly: true
+                          pattern: ^[-a-zA-Z0-9_]+$
+                        tags:
+                          type: array
+                          items:
+                            properties:
+                              id:
+                                type: integer
+                                readOnly: true
+                              slug:
+                                type: string
+                                maxLength: 50
+                                pattern: ^[-a-zA-Z0-9_]+$
+                            required:
+                            - slug
+                        title:
+                          type: string
+                          maxLength: 256
+                        content:
+                          type: string
+                        created_at:
+                          type: string
+                          format: date-time
+                          readOnly: true
+                      required:
+                      - title
+                      - content
+          description: ''
+    post:
+      operationId: createPost
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                tags:
+                  type: array
+                  items:
+                    properties:
+                      id:
+                        type: integer
+                        readOnly: true
+                      slug:
+                        type: string
+                        maxLength: 50
+                        pattern: ^[-a-zA-Z0-9_]+$
+                    required:
+                    - slug
+                title:
+                  type: string
+                  maxLength: 256
+                content:
+                  type: string
+              required:
+              - title
+              - content
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  author:
+                    type: string
+                    readOnly: true
+                  slug:
+                    type: string
+                    readOnly: true
+                    pattern: ^[-a-zA-Z0-9_]+$
+                  tags:
+                    type: array
+                    items:
+                      properties:
+                        id:
+                          type: integer
+                          readOnly: true
+                        slug:
+                          type: string
+                          maxLength: 50
+                          pattern: ^[-a-zA-Z0-9_]+$
+                      required:
+                      - slug
+                  title:
+                    type: string
+                    maxLength: 256
+                  content:
+                    type: string
+                  created_at:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                required:
+                - title
+                - content
+          description: ''
+  /api/posts/{slug}/:
+    get:
+      operationId: retrievePost
+      parameters:
+      - name: slug
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  author:
+                    type: string
+                    readOnly: true
+                  slug:
+                    type: string
+                    readOnly: true
+                    pattern: ^[-a-zA-Z0-9_]+$
+                  tags:
+                    type: array
+                    items:
+                      properties:
+                        id:
+                          type: integer
+                          readOnly: true
+                        slug:
+                          type: string
+                          maxLength: 50
+                          pattern: ^[-a-zA-Z0-9_]+$
+                      required:
+                      - slug
+                  title:
+                    type: string
+                    maxLength: 256
+                  content:
+                    type: string
+                  created_at:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                required:
+                - title
+                - content
+          description: ''
+    put:
+      operationId: updatePost
+      parameters:
+      - name: slug
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                tags:
+                  type: array
+                  items:
+                    properties:
+                      id:
+                        type: integer
+                        readOnly: true
+                      slug:
+                        type: string
+                        maxLength: 50
+                        pattern: ^[-a-zA-Z0-9_]+$
+                    required:
+                    - slug
+                title:
+                  type: string
+                  maxLength: 256
+                content:
+                  type: string
+              required:
+              - title
+              - content
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  author:
+                    type: string
+                    readOnly: true
+                  slug:
+                    type: string
+                    readOnly: true
+                    pattern: ^[-a-zA-Z0-9_]+$
+                  tags:
+                    type: array
+                    items:
+                      properties:
+                        id:
+                          type: integer
+                          readOnly: true
+                        slug:
+                          type: string
+                          maxLength: 50
+                          pattern: ^[-a-zA-Z0-9_]+$
+                      required:
+                      - slug
+                  title:
+                    type: string
+                    maxLength: 256
+                  content:
+                    type: string
+                  created_at:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                required:
+                - title
+                - content
+          description: ''
+    patch:
+      operationId: partial_updatePost
+      parameters:
+      - name: slug
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                tags:
+                  type: array
+                  items:
+                    properties:
+                      id:
+                        type: integer
+                        readOnly: true
+                      slug:
+                        type: string
+                        maxLength: 50
+                        pattern: ^[-a-zA-Z0-9_]+$
+                    required:
+                    - slug
+                title:
+                  type: string
+                  maxLength: 256
+                content:
+                  type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  author:
+                    type: string
+                    readOnly: true
+                  slug:
+                    type: string
+                    readOnly: true
+                    pattern: ^[-a-zA-Z0-9_]+$
+                  tags:
+                    type: array
+                    items:
+                      properties:
+                        id:
+                          type: integer
+                          readOnly: true
+                        slug:
+                          type: string
+                          maxLength: 50
+                          pattern: ^[-a-zA-Z0-9_]+$
+                      required:
+                      - slug
+                  title:
+                    type: string
+                    maxLength: 256
+                  content:
+                    type: string
+                  created_at:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                required:
+                - title
+                - content
+          description: ''
+    delete:
+      operationId: destroyPost
+      parameters:
+      - name: slug
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+  /api/tags/:
+    get:
+      operationId: listTags
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type: string
+                    nullable: true
+                  previous:
+                    type: string
+                    nullable: true
+                  results:
+                    type: array
+                    items:
+                      properties:
+                        id:
+                          type: integer
+                          readOnly: true
+                        slug:
+                          type: string
+                          maxLength: 50
+                          pattern: ^[-a-zA-Z0-9_]+$
+                      required:
+                      - slug
+          description: ''
+    post:
+      operationId: createTag
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                slug:
+                  type: string
+                  maxLength: 50
+                  pattern: ^[-a-zA-Z0-9_]+$
+              required:
+              - slug
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  slug:
+                    type: string
+                    maxLength: 50
+                    pattern: ^[-a-zA-Z0-9_]+$
+                required:
+                - slug
+          description: ''
+  /api/tags/{slug}/:
+    get:
+      operationId: retrieveTag
+      parameters:
+      - name: slug
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  slug:
+                    type: string
+                    maxLength: 50
+                    pattern: ^[-a-zA-Z0-9_]+$
+                required:
+                - slug
+          description: ''
+    put:
+      operationId: updateTag
+      parameters:
+      - name: slug
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                slug:
+                  type: string
+                  maxLength: 50
+                  pattern: ^[-a-zA-Z0-9_]+$
+              required:
+              - slug
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  slug:
+                    type: string
+                    maxLength: 50
+                    pattern: ^[-a-zA-Z0-9_]+$
+                required:
+                - slug
+          description: ''
+    patch:
+      operationId: partial_updateTag
+      parameters:
+      - name: slug
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                slug:
+                  type: string
+                  maxLength: 50
+                  pattern: ^[-a-zA-Z0-9_]+$
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  slug:
+                    type: string
+                    maxLength: 50
+                    pattern: ^[-a-zA-Z0-9_]+$
+                required:
+                - slug
+          description: ''
+    delete:
+      operationId: destroyTag
+      parameters:
+      - name: slug
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+  /api/posts/{parent_lookup_post__slug}/comments/:
+    get:
+      operationId: listComments
+      parameters:
+      - name: parent_lookup_post__slug
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type: string
+                    nullable: true
+                  previous:
+                    type: string
+                    nullable: true
+                  results:
+                    type: array
+                    items:
+                      properties:
+                        id:
+                          type: integer
+                          readOnly: true
+                        author:
+                          type: string
+                          readOnly: true
+                        content:
+                          type: string
+                        created_at:
+                          type: string
+                          format: date-time
+                          readOnly: true
+                        post:
+                          type: integer
+                      required:
+                      - content
+                      - post
+          description: ''
+    post:
+      operationId: createComment
+      parameters:
+      - name: parent_lookup_post__slug
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                content:
+                  type: string
+                post:
+                  type: integer
+              required:
+              - content
+              - post
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  author:
+                    type: string
+                    readOnly: true
+                  content:
+                    type: string
+                  created_at:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  post:
+                    type: integer
+                required:
+                - content
+                - post
+          description: ''
+  /api/posts/{parent_lookup_post__slug}/comments/{id}/:
+    get:
+      operationId: retrieveComment
+      parameters:
+      - name: parent_lookup_post__slug
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this comment.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  author:
+                    type: string
+                    readOnly: true
+                  content:
+                    type: string
+                  created_at:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  post:
+                    type: integer
+                required:
+                - content
+                - post
+          description: ''
+    put:
+      operationId: updateComment
+      parameters:
+      - name: parent_lookup_post__slug
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this comment.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                content:
+                  type: string
+                post:
+                  type: integer
+              required:
+              - content
+              - post
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  author:
+                    type: string
+                    readOnly: true
+                  content:
+                    type: string
+                  created_at:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  post:
+                    type: integer
+                required:
+                - content
+                - post
+          description: ''
+    patch:
+      operationId: partial_updateComment
+      parameters:
+      - name: parent_lookup_post__slug
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this comment.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                content:
+                  type: string
+                post:
+                  type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  author:
+                    type: string
+                    readOnly: true
+                  content:
+                    type: string
+                  created_at:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  post:
+                    type: integer
+                required:
+                - content
+                - post
+          description: ''
+    delete:
+      operationId: destroyComment
+      parameters:
+      - name: parent_lookup_post__slug
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this comment.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+  /api/posts/{parent_lookup_posts__slug}/tags/:
+    get:
+      operationId: listTags
+      parameters:
+      - name: parent_lookup_posts__slug
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type: string
+                    nullable: true
+                  previous:
+                    type: string
+                    nullable: true
+                  results:
+                    type: array
+                    items:
+                      properties:
+                        id:
+                          type: integer
+                          readOnly: true
+                        slug:
+                          type: string
+                          maxLength: 50
+                          pattern: ^[-a-zA-Z0-9_]+$
+                      required:
+                      - slug
+          description: ''
+    post:
+      operationId: createTag
+      parameters:
+      - name: parent_lookup_posts__slug
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                slug:
+                  type: string
+                  maxLength: 50
+                  pattern: ^[-a-zA-Z0-9_]+$
+              required:
+              - slug
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  slug:
+                    type: string
+                    maxLength: 50
+                    pattern: ^[-a-zA-Z0-9_]+$
+                required:
+                - slug
+          description: ''
+  /api/posts/{parent_lookup_posts__slug}/tags/{slug}/:
+    get:
+      operationId: retrieveTag
+      parameters:
+      - name: slug
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: parent_lookup_posts__slug
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  slug:
+                    type: string
+                    maxLength: 50
+                    pattern: ^[-a-zA-Z0-9_]+$
+                required:
+                - slug
+          description: ''
+    put:
+      operationId: updateTag
+      parameters:
+      - name: slug
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: parent_lookup_posts__slug
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                slug:
+                  type: string
+                  maxLength: 50
+                  pattern: ^[-a-zA-Z0-9_]+$
+              required:
+              - slug
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  slug:
+                    type: string
+                    maxLength: 50
+                    pattern: ^[-a-zA-Z0-9_]+$
+                required:
+                - slug
+          description: ''
+    patch:
+      operationId: partial_updateTag
+      parameters:
+      - name: slug
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: parent_lookup_posts__slug
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                slug:
+                  type: string
+                  maxLength: 50
+                  pattern: ^[-a-zA-Z0-9_]+$
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  slug:
+                    type: string
+                    maxLength: 50
+                    pattern: ^[-a-zA-Z0-9_]+$
+                required:
+                - slug
+          description: ''
+    delete:
+      operationId: destroyTag
+      parameters:
+      - name: slug
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: parent_lookup_posts__slug
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+  /api/tags/{parent_lookup_tags__slug}/posts/:
+    get:
+      operationId: listPosts
+      parameters:
+      - name: parent_lookup_tags__slug
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type: string
+                    nullable: true
+                  previous:
+                    type: string
+                    nullable: true
+                  results:
+                    type: array
+                    items:
+                      properties:
+                        id:
+                          type: integer
+                          readOnly: true
+                        author:
+                          type: string
+                          readOnly: true
+                        slug:
+                          type: string
+                          readOnly: true
+                          pattern: ^[-a-zA-Z0-9_]+$
+                        tags:
+                          type: array
+                          items:
+                            properties:
+                              id:
+                                type: integer
+                                readOnly: true
+                              slug:
+                                type: string
+                                maxLength: 50
+                                pattern: ^[-a-zA-Z0-9_]+$
+                            required:
+                            - slug
+                        title:
+                          type: string
+                          maxLength: 256
+                        content:
+                          type: string
+                        created_at:
+                          type: string
+                          format: date-time
+                          readOnly: true
+                      required:
+                      - title
+                      - content
+          description: ''
+    post:
+      operationId: createPost
+      parameters:
+      - name: parent_lookup_tags__slug
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                tags:
+                  type: array
+                  items:
+                    properties:
+                      id:
+                        type: integer
+                        readOnly: true
+                      slug:
+                        type: string
+                        maxLength: 50
+                        pattern: ^[-a-zA-Z0-9_]+$
+                    required:
+                    - slug
+                title:
+                  type: string
+                  maxLength: 256
+                content:
+                  type: string
+              required:
+              - title
+              - content
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  author:
+                    type: string
+                    readOnly: true
+                  slug:
+                    type: string
+                    readOnly: true
+                    pattern: ^[-a-zA-Z0-9_]+$
+                  tags:
+                    type: array
+                    items:
+                      properties:
+                        id:
+                          type: integer
+                          readOnly: true
+                        slug:
+                          type: string
+                          maxLength: 50
+                          pattern: ^[-a-zA-Z0-9_]+$
+                      required:
+                      - slug
+                  title:
+                    type: string
+                    maxLength: 256
+                  content:
+                    type: string
+                  created_at:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                required:
+                - title
+                - content
+          description: ''
+  /api/tags/{parent_lookup_tags__slug}/posts/{slug}/:
+    get:
+      operationId: retrievePost
+      parameters:
+      - name: parent_lookup_tags__slug
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: slug
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  author:
+                    type: string
+                    readOnly: true
+                  slug:
+                    type: string
+                    readOnly: true
+                    pattern: ^[-a-zA-Z0-9_]+$
+                  tags:
+                    type: array
+                    items:
+                      properties:
+                        id:
+                          type: integer
+                          readOnly: true
+                        slug:
+                          type: string
+                          maxLength: 50
+                          pattern: ^[-a-zA-Z0-9_]+$
+                      required:
+                      - slug
+                  title:
+                    type: string
+                    maxLength: 256
+                  content:
+                    type: string
+                  created_at:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                required:
+                - title
+                - content
+          description: ''
+    put:
+      operationId: updatePost
+      parameters:
+      - name: parent_lookup_tags__slug
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: slug
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                tags:
+                  type: array
+                  items:
+                    properties:
+                      id:
+                        type: integer
+                        readOnly: true
+                      slug:
+                        type: string
+                        maxLength: 50
+                        pattern: ^[-a-zA-Z0-9_]+$
+                    required:
+                    - slug
+                title:
+                  type: string
+                  maxLength: 256
+                content:
+                  type: string
+              required:
+              - title
+              - content
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  author:
+                    type: string
+                    readOnly: true
+                  slug:
+                    type: string
+                    readOnly: true
+                    pattern: ^[-a-zA-Z0-9_]+$
+                  tags:
+                    type: array
+                    items:
+                      properties:
+                        id:
+                          type: integer
+                          readOnly: true
+                        slug:
+                          type: string
+                          maxLength: 50
+                          pattern: ^[-a-zA-Z0-9_]+$
+                      required:
+                      - slug
+                  title:
+                    type: string
+                    maxLength: 256
+                  content:
+                    type: string
+                  created_at:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                required:
+                - title
+                - content
+          description: ''
+    patch:
+      operationId: partial_updatePost
+      parameters:
+      - name: parent_lookup_tags__slug
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: slug
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                tags:
+                  type: array
+                  items:
+                    properties:
+                      id:
+                        type: integer
+                        readOnly: true
+                      slug:
+                        type: string
+                        maxLength: 50
+                        pattern: ^[-a-zA-Z0-9_]+$
+                    required:
+                    - slug
+                title:
+                  type: string
+                  maxLength: 256
+                content:
+                  type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  author:
+                    type: string
+                    readOnly: true
+                  slug:
+                    type: string
+                    readOnly: true
+                    pattern: ^[-a-zA-Z0-9_]+$
+                  tags:
+                    type: array
+                    items:
+                      properties:
+                        id:
+                          type: integer
+                          readOnly: true
+                        slug:
+                          type: string
+                          maxLength: 50
+                          pattern: ^[-a-zA-Z0-9_]+$
+                      required:
+                      - slug
+                  title:
+                    type: string
+                    maxLength: 256
+                  content:
+                    type: string
+                  created_at:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                required:
+                - title
+                - content
+          description: ''
+    delete:
+      operationId: destroyPost
+      parameters:
+      - name: parent_lookup_tags__slug
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: slug
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+  /api/users/:
+    get:
+      operationId: listUsers
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type: string
+                    nullable: true
+                  previous:
+                    type: string
+                    nullable: true
+                  results:
+                    type: array
+                    items:
+                      properties:
+                        username:
+                          type: string
+                          description: Required. 150 characters or fewer. Letters,
+                            digits and @/./+/-/_ only.
+                          pattern: ^[\w.@+-]+$
+                          maxLength: 150
+                        email:
+                          type: string
+                          format: email
+                          maxLength: 254
+                        first_name:
+                          type: string
+                          maxLength: 30
+                        last_name:
+                          type: string
+                          maxLength: 150
+                      required:
+                      - username
+          description: ''
+    post:
+      operationId: createUser
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                username:
+                  type: string
+                  description: Required. 150 characters or fewer. Letters, digits
+                    and @/./+/-/_ only.
+                  pattern: ^[\w.@+-]+$
+                  maxLength: 150
+                email:
+                  type: string
+                  format: email
+                  maxLength: 254
+                password:
+                  type: string
+                  writeOnly: true
+                  maxLength: 128
+                first_name:
+                  type: string
+                  maxLength: 30
+                last_name:
+                  type: string
+                  maxLength: 150
+              required:
+              - username
+              - password
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  username:
+                    type: string
+                    description: Required. 150 characters or fewer. Letters, digits
+                      and @/./+/-/_ only.
+                    pattern: ^[\w.@+-]+$
+                    maxLength: 150
+                  email:
+                    type: string
+                    format: email
+                    maxLength: 254
+                  first_name:
+                    type: string
+                    maxLength: 30
+                  last_name:
+                    type: string
+                    maxLength: 150
+                required:
+                - username
+          description: ''
+  /api/users/{username}/:
+    get:
+      operationId: retrieveUser
+      parameters:
+      - name: username
+        in: path
+        required: true
+        description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+          only.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  username:
+                    type: string
+                    description: Required. 150 characters or fewer. Letters, digits
+                      and @/./+/-/_ only.
+                    pattern: ^[\w.@+-]+$
+                    maxLength: 150
+                  email:
+                    type: string
+                    format: email
+                    maxLength: 254
+                  first_name:
+                    type: string
+                    maxLength: 30
+                  last_name:
+                    type: string
+                    maxLength: 150
+                required:
+                - username
+          description: ''
+    put:
+      operationId: updateUser
+      parameters:
+      - name: username
+        in: path
+        required: true
+        description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+          only.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                username:
+                  type: string
+                  description: Required. 150 characters or fewer. Letters, digits
+                    and @/./+/-/_ only.
+                  pattern: ^[\w.@+-]+$
+                  maxLength: 150
+                email:
+                  type: string
+                  format: email
+                  maxLength: 254
+                password:
+                  type: string
+                  writeOnly: true
+                  maxLength: 128
+                first_name:
+                  type: string
+                  maxLength: 30
+                last_name:
+                  type: string
+                  maxLength: 150
+              required:
+              - username
+              - password
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  username:
+                    type: string
+                    description: Required. 150 characters or fewer. Letters, digits
+                      and @/./+/-/_ only.
+                    pattern: ^[\w.@+-]+$
+                    maxLength: 150
+                  email:
+                    type: string
+                    format: email
+                    maxLength: 254
+                  first_name:
+                    type: string
+                    maxLength: 30
+                  last_name:
+                    type: string
+                    maxLength: 150
+                required:
+                - username
+          description: ''
+    patch:
+      operationId: partial_updateUser
+      parameters:
+      - name: username
+        in: path
+        required: true
+        description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+          only.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                username:
+                  type: string
+                  description: Required. 150 characters or fewer. Letters, digits
+                    and @/./+/-/_ only.
+                  pattern: ^[\w.@+-]+$
+                  maxLength: 150
+                email:
+                  type: string
+                  format: email
+                  maxLength: 254
+                password:
+                  type: string
+                  writeOnly: true
+                  maxLength: 128
+                first_name:
+                  type: string
+                  maxLength: 30
+                last_name:
+                  type: string
+                  maxLength: 150
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  username:
+                    type: string
+                    description: Required. 150 characters or fewer. Letters, digits
+                      and @/./+/-/_ only.
+                    pattern: ^[\w.@+-]+$
+                    maxLength: 150
+                  email:
+                    type: string
+                    format: email
+                    maxLength: 254
+                  first_name:
+                    type: string
+                    maxLength: 30
+                  last_name:
+                    type: string
+                    maxLength: 150
+                required:
+                - username
+          description: ''
+    delete:
+      operationId: destroyUser
+      parameters:
+      - name: username
+        in: path
+        required: true
+        description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+          only.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+  /api/users/{parent_lookup_author__username}/posts/:
+    get:
+      operationId: listPosts
+      parameters:
+      - name: parent_lookup_author__username
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type: string
+                    nullable: true
+                  previous:
+                    type: string
+                    nullable: true
+                  results:
+                    type: array
+                    items:
+                      properties:
+                        id:
+                          type: integer
+                          readOnly: true
+                        author:
+                          type: string
+                          readOnly: true
+                        slug:
+                          type: string
+                          readOnly: true
+                          pattern: ^[-a-zA-Z0-9_]+$
+                        tags:
+                          type: array
+                          items:
+                            properties:
+                              id:
+                                type: integer
+                                readOnly: true
+                              slug:
+                                type: string
+                                maxLength: 50
+                                pattern: ^[-a-zA-Z0-9_]+$
+                            required:
+                            - slug
+                        title:
+                          type: string
+                          maxLength: 256
+                        content:
+                          type: string
+                        created_at:
+                          type: string
+                          format: date-time
+                          readOnly: true
+                      required:
+                      - title
+                      - content
+          description: ''
+    post:
+      operationId: createPost
+      parameters:
+      - name: parent_lookup_author__username
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                tags:
+                  type: array
+                  items:
+                    properties:
+                      id:
+                        type: integer
+                        readOnly: true
+                      slug:
+                        type: string
+                        maxLength: 50
+                        pattern: ^[-a-zA-Z0-9_]+$
+                    required:
+                    - slug
+                title:
+                  type: string
+                  maxLength: 256
+                content:
+                  type: string
+              required:
+              - title
+              - content
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  author:
+                    type: string
+                    readOnly: true
+                  slug:
+                    type: string
+                    readOnly: true
+                    pattern: ^[-a-zA-Z0-9_]+$
+                  tags:
+                    type: array
+                    items:
+                      properties:
+                        id:
+                          type: integer
+                          readOnly: true
+                        slug:
+                          type: string
+                          maxLength: 50
+                          pattern: ^[-a-zA-Z0-9_]+$
+                      required:
+                      - slug
+                  title:
+                    type: string
+                    maxLength: 256
+                  content:
+                    type: string
+                  created_at:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                required:
+                - title
+                - content
+          description: ''
+  /api/users/{parent_lookup_author__username}/posts/{slug}/:
+    get:
+      operationId: retrievePost
+      parameters:
+      - name: slug
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: parent_lookup_author__username
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  author:
+                    type: string
+                    readOnly: true
+                  slug:
+                    type: string
+                    readOnly: true
+                    pattern: ^[-a-zA-Z0-9_]+$
+                  tags:
+                    type: array
+                    items:
+                      properties:
+                        id:
+                          type: integer
+                          readOnly: true
+                        slug:
+                          type: string
+                          maxLength: 50
+                          pattern: ^[-a-zA-Z0-9_]+$
+                      required:
+                      - slug
+                  title:
+                    type: string
+                    maxLength: 256
+                  content:
+                    type: string
+                  created_at:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                required:
+                - title
+                - content
+          description: ''
+    put:
+      operationId: updatePost
+      parameters:
+      - name: slug
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: parent_lookup_author__username
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                tags:
+                  type: array
+                  items:
+                    properties:
+                      id:
+                        type: integer
+                        readOnly: true
+                      slug:
+                        type: string
+                        maxLength: 50
+                        pattern: ^[-a-zA-Z0-9_]+$
+                    required:
+                    - slug
+                title:
+                  type: string
+                  maxLength: 256
+                content:
+                  type: string
+              required:
+              - title
+              - content
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  author:
+                    type: string
+                    readOnly: true
+                  slug:
+                    type: string
+                    readOnly: true
+                    pattern: ^[-a-zA-Z0-9_]+$
+                  tags:
+                    type: array
+                    items:
+                      properties:
+                        id:
+                          type: integer
+                          readOnly: true
+                        slug:
+                          type: string
+                          maxLength: 50
+                          pattern: ^[-a-zA-Z0-9_]+$
+                      required:
+                      - slug
+                  title:
+                    type: string
+                    maxLength: 256
+                  content:
+                    type: string
+                  created_at:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                required:
+                - title
+                - content
+          description: ''
+    patch:
+      operationId: partial_updatePost
+      parameters:
+      - name: slug
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: parent_lookup_author__username
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                tags:
+                  type: array
+                  items:
+                    properties:
+                      id:
+                        type: integer
+                        readOnly: true
+                      slug:
+                        type: string
+                        maxLength: 50
+                        pattern: ^[-a-zA-Z0-9_]+$
+                    required:
+                    - slug
+                title:
+                  type: string
+                  maxLength: 256
+                content:
+                  type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  author:
+                    type: string
+                    readOnly: true
+                  slug:
+                    type: string
+                    readOnly: true
+                    pattern: ^[-a-zA-Z0-9_]+$
+                  tags:
+                    type: array
+                    items:
+                      properties:
+                        id:
+                          type: integer
+                          readOnly: true
+                        slug:
+                          type: string
+                          maxLength: 50
+                          pattern: ^[-a-zA-Z0-9_]+$
+                      required:
+                      - slug
+                  title:
+                    type: string
+                    maxLength: 256
+                  content:
+                    type: string
+                  created_at:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                required:
+                - title
+                - content
+          description: ''
+    delete:
+      operationId: destroyPost
+      parameters:
+      - name: slug
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: parent_lookup_author__username
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+  /api/login/:
+    post:
+      operationId: CreateTokenObtainPair
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+                  writeOnly: true
+              required:
+              - username
+              - password
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  username:
+                    type: string
+                required:
+                - username
+          description: ''
+  /api/login/refresh/:
+    post:
+      operationId: CreateTokenRefresh
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                refresh:
+                  type: string
+              required:
+              - refresh
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  refresh:
+                    type: string
+                required:
+                - refresh
+          description: ''
+  /api/login/verify/:
+    post:
+      operationId: CreateTokenVerify
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                token:
+                  type: string
+              required:
+              - token
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  token:
+                    type: string
+                required:
+                - token
+          description: ''
