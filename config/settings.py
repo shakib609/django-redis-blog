@@ -160,3 +160,6 @@ CACHES = {
         'LOCATION': 'localhost:6379',
     },
 }
+
+# Set cache timeout to 2 hours
+CACHE_TIMEOUT = 60 * 60 * 2
