@@ -10,7 +10,7 @@ from common.permissions import IsAuthorOrReadOnly
 from .models import Comment, Post, Tag
 from .serializers import CommentSerializer, PostSerializer, TagSerializer
 
-CACHE_TIMEOUT = settings.CACHE_TIMEOUT or DEFAULT_TIMEOUT
+CACHE_TIMEOUT = getattr(settings, 'CACHE_TIMEOUT', DEFAULT_TIMEOUT)
 
 
 class PostViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
