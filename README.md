@@ -2,8 +2,7 @@
 Simple Blog API created with Django with Redis Caching.
 
 # Setup
-- Install [Poetry](https://poetry.eustace.io/docs/).
-- Install [Docker](https://docs.docker.com/install/).
+- Install [Poetry](https://poetry.eustace.io/docs/), [Docker](https://docs.docker.com/install/) and [yarn](https://yarnpkg.com/en/docs/install).
 - Clone this repository.
 ```shell
 $ git clone https://github.com/shakib609/django-redis-blog.git
@@ -12,6 +11,8 @@ $ git clone https://github.com/shakib609/django-redis-blog.git
 ```shell
 $ cd backend
 $ poetry install
+$ cd ../frontend
+$ yarn install
 ```
 - Migrate Database.
 ```shell
@@ -30,6 +31,10 @@ $ [sudo] docker run -p 6379:6379 redis:latest
 $ cd backend
 $ poetry run python manage.py runserver
 ```
-
-
+- Run React Development Server
+```shell
+$ cd frontend
+$ yarn start
+```
+Now you can visit [http://localhost:3000](http://localhost:3000) to visit your site.
 P.S. For Testing purposes you should turn off the `DEBUG` setting.
