@@ -16,3 +16,17 @@ $ poetry install
 ```shell
 $ poetry run python manage.py migrate
 ```
+- Start up a redis instance with **Docker**
+```shell
+# The below command might be different based on your system
+$ sudo systemctl start docker
+# You might need to give sudo permissions to docker
+$ [sudo] docker run -p 6379:6379 redis:latest
+```
+- Run Django Server
+```shell
+$ poetry run python manage.py runserver
+```
+
+
+P.S. For Testing purposes you should turn off the `DEBUG` setting.
