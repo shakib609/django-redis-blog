@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
+import { Link } from '@reach/router';
 import Navbar from 'react-bulma-components/lib/components/navbar';
 import Container from 'react-bulma-components/lib/components/container';
 import Button from 'react-bulma-components/lib/components/button';
@@ -14,7 +15,7 @@ const DNavbar = () => {
     >
       <Container>
         <Navbar.Brand>
-          <Navbar.Item>
+          <Navbar.Item renderAs={Link} to="/">
             <h1>
               <strong>Django-Redis-Blog</strong>
             </h1>
@@ -23,7 +24,7 @@ const DNavbar = () => {
         </Navbar.Brand>
         <Navbar.Menu>
           <Navbar.Container position="end">
-            <Button.Group as={Navbar.Item}>
+            <Button.Group>
               <Button color="primary">
                 <strong>Sign up</strong>
               </Button>
