@@ -1,57 +1,40 @@
-import React, { useState } from 'react';
-import { Button, Container, Modal, Navbar } from 'rbx';
+/** @jsx jsx */
+import { jsx, css } from '@emotion/core';
+import Navbar from 'react-bulma-components/lib/components/navbar';
+import Container from 'react-bulma-components/lib/components/container';
+import Button from 'react-bulma-components/lib/components/button';
 
 const DNavbar = () => {
-  const [active, setActive] = useState(false);
-  const [formType, setFormType] = useState('login');
-
   return (
-    <>
-      <Navbar>
-        <Container>
-          <Navbar.Brand>
-            <Navbar.Item>
-              <h1 className="has-text-weight-bold">Django-Redis-Blog</h1>
-            </Navbar.Item>
-          </Navbar.Brand>
-          <Navbar.Menu>
-            <Navbar.Segment align="end">
-              <Navbar.Item>
-                <Button.Group>
-                  <Button color="primary">
-                    <strong>Sign up</strong>
-                  </Button>
-                  <Button
-                    color="light"
-                    onClick={() => {
-                      setFormType('login');
-                      setActive(true);
-                    }}
-                  >
-                    Log in
-                  </Button>
-                </Button.Group>
-              </Navbar.Item>
-            </Navbar.Segment>
-          </Navbar.Menu>
-        </Container>
-      </Navbar>
-      <Modal
-        active={active}
-        onClose={() => setActive(false)}
-        closeOnBlur={true}
-      >
-        <Modal.Background />
-        <Modal.Card>
-          <Modal.Card.Head>
-            <Modal.Card.Title>
-              {formType === 'login' ? 'Log in' : 'Register'}
-            </Modal.Card.Title>
-          </Modal.Card.Head>
-          <Modal.Card.Body></Modal.Card.Body>
-        </Modal.Card>
-      </Modal>
-    </>
+    <Navbar
+      css={css`
+        box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+        margin-bottom: 1.5rem;
+      `}
+    >
+      <Container>
+        <Navbar.Brand>
+          <Navbar.Item>
+            <h1>
+              <strong>Django-Redis-Blog</strong>
+            </h1>
+          </Navbar.Item>
+          <Navbar.Burger />
+        </Navbar.Brand>
+        <Navbar.Menu>
+          <Navbar.Container position="end">
+            <Button.Group as={Navbar.Item}>
+              <Button color="primary">
+                <strong>Sign up</strong>
+              </Button>
+              <Button color="light">
+                <strong>Log in</strong>
+              </Button>
+            </Button.Group>
+          </Navbar.Container>
+        </Navbar.Menu>
+      </Container>
+    </Navbar>
   );
 };
 

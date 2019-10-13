@@ -1,5 +1,6 @@
 import React from 'react';
-import { Container } from 'rbx';
+import Container from 'react-bulma-components/lib/components/container';
+
 import DNavbar from './components/DNavbar';
 
 const App = () => {
