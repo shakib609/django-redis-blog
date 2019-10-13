@@ -1,17 +1,21 @@
-/** @jsx jsx */
-import { jsx, css } from '@emotion/core';
+import React from 'react';
 import { Link } from '@reach/router';
+import { connect } from 'react-redux';
 import Navbar from 'react-bulma-components/lib/components/navbar';
 import Container from 'react-bulma-components/lib/components/container';
 import Button from 'react-bulma-components/lib/components/button';
 
-const DNavbar = () => {
+import { logout } from '../actions/authActions';
+
+const DNavbar = props => {
+  const { auth, logout } = props;
+
   return (
     <Navbar
-      css={css`
-        box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-        margin-bottom: 1.5rem;
-      `}
+      style={{
+        boxShadow: '1px 1px 3px rgba(0, 0, 0, 0.1)',
+        marginBottom: '1.5rem'
+      }}
     >
       <Container>
         <Navbar.Brand>
@@ -25,12 +29,20 @@ const DNavbar = () => {
         <Navbar.Menu>
           <Navbar.Container position="end">
             <Button.Group>
-              <Button color="primary">
-                <strong>Sign up</strong>
-              </Button>
-              <Button color="light">
-                <strong>Log in</strong>
-              </Button>
+              {!!auth.accessToken ? (
+                <Button color="primary" onClick={logout}>
+                  <strong>Log out</strong>
+                </Button>
+              ) : (
+                <>
+                  <Button color="primary">
+                    <strong>Sign up</strong>
+                  </Button>
+                  <Button color="light">
+                    <strong>Log in</strong>
+                  </Button>
+                </>
+              )}
             </Button.Group>
           </Navbar.Container>
         </Navbar.Menu>
@@ -39,4 +51,15 @@ const DNavbar = () => {
   );
 };
 
-export default DNavbar;
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+const mapDispatchToProps = dispatch => ({
+  logout: () => dispatch(logout())
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DNavbar);

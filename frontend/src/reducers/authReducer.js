@@ -16,8 +16,8 @@ function authReducer(state = defaultState, action) {
     case LOGIN_SUCCESS:
       return {
         ...state,
-        accessToken: action.payload.token,
-        refreshToken: action.payload.refresh,
+        accessToken: action.payload.accessToken,
+        refreshToken: action.payload.refreshToken,
         loading: false
       };
     case LOGIN_ERROR:
