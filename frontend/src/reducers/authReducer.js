@@ -17,7 +17,7 @@ function authReducer(state = defaultState, action) {
       return {
         ...state,
         accessToken: action.payload.token,
-        accessToken: action.payload.refresh,
+        refreshToken: action.payload.refresh,
         loading: false
       };
     case LOGIN_ERROR:
@@ -26,8 +26,9 @@ function authReducer(state = defaultState, action) {
         loading: false,
         errors: action.payload.errors
       };
+    default:
+      return state;
   }
-  return state;
 }
 
 export default authReducer;
