@@ -18,10 +18,11 @@ export const login = (username, password) => async dispatch => {
       }
     });
   } else {
+    const { detail } = response.data;
     dispatch({
       type: LOGIN_ERROR,
       payload: {
-        errors: detail
+        error: detail
       }
     });
   }

@@ -4,7 +4,7 @@ const defaultState = {
   accessToken: null,
   refreshToken: null,
   loading: false,
-  errors: null
+  error: null
 };
 
 function authReducer(state = defaultState, action) {
@@ -14,17 +14,19 @@ function authReducer(state = defaultState, action) {
     case LOGIN:
       return { ...state, loading: true };
     case LOGIN_SUCCESS:
+      const { accessToken, refreshToken } = action.payload;
       return {
         ...state,
-        accessToken: action.payload.accessToken,
-        refreshToken: action.payload.refreshToken,
+        accessToken,
+        refreshToken,
         loading: false
       };
     case LOGIN_ERROR:
+      const { error } = action.payload;
       return {
         ...state,
-        loading: false,
-        errors: action.payload.errors
+        error,
+        loading: false
       };
     default:
       return state;
