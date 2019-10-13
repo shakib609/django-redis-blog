@@ -1,17 +1,18 @@
 import React from 'react';
+import { Router } from '@reach/router';
 import Container from 'react-bulma-components/lib/components/container';
 
 import DNavbar from './components/DNavbar';
+import Home from './pages/Home';
 
 const App = () => {
   return (
     <>
       <DNavbar />
       <Container>
-        <h1>Django-Redis-Blog</h1>
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
+        <Router>
+          <Home path="/" />
+        </Router>
       </Container>
     </>
   );
