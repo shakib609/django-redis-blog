@@ -2,6 +2,7 @@
   "name": "django-redis-blog",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
   "dependencies": {
     "@emotion/core": "^10.0.21",
     "@reach/router": "^1.2.1",
