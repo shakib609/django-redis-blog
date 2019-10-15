@@ -22,7 +22,7 @@ export const login = (username, password) => dispatch => {
           }
         });
         // Navigate to home page on successful login
-        navigate('/');
+        navigate('/', { replace: true });
       }
     })
     .catch(e => {
