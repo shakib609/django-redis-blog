@@ -1,3 +1,5 @@
+import { navigate } from '@reach/router';
+
 import client from '../client';
 import { LOGOUT, LOGIN, LOGIN_SUCCESS, LOGIN_ERROR } from '../constants';
 
@@ -5,25 +7,31 @@ export const logout = () => ({
   type: LOGOUT
 });
 
-export const login = (username, password) => async dispatch => {
+export const login = (username, password) => dispatch => {
   dispatch({ type: LOGIN });
-  const response = await client.post('/login', { username, password });
-  if (response.status === 200) {
-    const { access, refresh } = response.data;
-    dispatch({
-      type: LOGIN_SUCCESS,
-      payload: {
-        accessToken: access,
-        refreshToken: refresh
+  client
+    .post('/login/', { username, password })
+    .then(response => {
+      if (response.status === 200) {
+        const { access, refresh } = response.data;
+        dispatch({
+          type: LOGIN_SUCCESS,
+          payload: {
+            accessToken: access,
+            refreshToken: refresh
+          }
+        });
+        // Navigate to home page on successful login
+        navigate('/');
       }
+    })
+    .catch(e => {
+      const { detail } = e.response.data;
+      dispatch({
+        type: LOGIN_ERROR,
+        payload: {
+          error: detail
+        }
+      });
     });
-  } else {
-    const { detail } = response.data;
-    dispatch({
-      type: LOGIN_ERROR,
-      payload: {
-        error: detail
-      }
-    });
-  }
 };

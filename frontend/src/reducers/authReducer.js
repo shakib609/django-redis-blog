@@ -7,7 +7,7 @@ const defaultState = {
   error: null
 };
 
-function authReducer(state = defaultState, action) {
+const authReducer = (state = defaultState, action) => {
   switch (action.type) {
     case LOGOUT:
       return { ...defaultState };
@@ -31,6 +31,6 @@ function authReducer(state = defaultState, action) {
     default:
       return state;
   }
-}
+};
 
 export default authReducer;

@@ -35,10 +35,10 @@ const DNavbar = props => {
                 </Button>
               ) : (
                 <>
-                  <Button color="primary">
+                  <Button color="primary" renderAs={Link} to="/register">
                     <strong>Sign up</strong>
                   </Button>
-                  <Button color="light">
+                  <Button color="light" renderAs={Link} to="/login">
                     <strong>Log in</strong>
                   </Button>
                 </>
