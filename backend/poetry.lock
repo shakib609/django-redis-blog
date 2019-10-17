@@ -44,6 +44,14 @@ version = "3.10.3"
 
 [[package]]
 category = "main"
+description = "Camel case JSON support for Django REST framework."
+name = "djangorestframework-camel-case"
+optional = false
+python-versions = "*"
+version = "1.1.1"
+
+[[package]]
+category = "main"
 description = "A minimal JSON Web Token authentication plugin for Django REST Framework"
 name = "djangorestframework-simplejwt"
 optional = false
@@ -123,7 +131,7 @@ python-versions = "*"
 version = "3.0.0"
 
 [metadata]
-content-hash = "6ab6b82fca3b28eb609382b96d7d5b63fc9306d7982cce12dd652f2f096e46a6"
+content-hash = "07c3cb7a6423706619cd9a29583c4b91c9f9214bcc660e5f65da4b08637f6990"
 python-versions = "^3.7"
 
 [metadata.hashes]
@@ -131,6 +139,7 @@ django = ["4025317ca01f75fc79250ff7262a06d8ba97cd4f82e93394b2a0a6a4a925caeb", "a
 django-debug-toolbar = ["17c53cd6bf4e7d69902aedf9a1d26c5d3b7369b54c5718744704f27b5a72f35d", "9a23ada2e43cd989195db3c18710b5d7451134a0d48127ab64c1d2ad81700342"]
 django-redis-cache = ["5c581743de5994e6b15abfd5b3dbcb8bf00e42d97658c96b7218bcb6a63f863b", "bc0eaf20d275708e0437cbea28f9965e1922c15291f6206edbef3966c029836b"]
 djangorestframework = ["5488aed8f8df5ec1d70f04b2114abc52ae6729748a176c453313834a9ee179c8", "dc81cbf9775c6898a580f6f1f387c4777d12bd87abf0f5406018d32ccae71090"]
+djangorestframework-camel-case = ["3fb06663a8e1acf84e59ed1219ce7d33957801e2acd951c273e6389efd4b0c31", "bcc831992b724ee634440eb3837d2a48f9af443e0d1280b3f9e018eb514ac9ed"]
 djangorestframework-simplejwt = ["4cb1a51bf9b098b983e1326a1cfc65fb0b3c5a2aa0fa43effdbf05dd6da5e8cb", "d025211806622c53020aa4f66029f1f7305e38de6439116b4a842661fc02cf36"]
 drf-extensions = ["78e3ac3c944774878c28ae335d91bbd6c43889bee610c48cf893faffb7685dce", "a3869f2bb668ee05acc78e9076e658527611efa9a4ba319f0817f89b0ec01bf4"]
 pyjwt = ["5c6eca3c2940464d106b99ba83b00c6add741c9becaec087fb7ccdefea71350e", "8d59a976fb773f3e6a39c85636357c4f0e242707394cadadd9814f5cbaa20e96"]

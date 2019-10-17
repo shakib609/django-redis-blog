@@ -146,6 +146,17 @@ REST_FRAMEWORK = {
     'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE':
     20,
+
+    # djangorestframework_camel_case package integration
+    'DEFAULT_RENDERER_CLASSES': (
+        'djangorestframework_camel_case.render.CamelCaseJSONRenderer',
+        'djangorestframework_camel_case.render.CamelCaseBrowsableAPIRenderer',
+    ),
+    'DEFAULT_PARSER_CLASSES': (
+        'djangorestframework_camel_case.parser.CamelCaseFormParser',
+        'djangorestframework_camel_case.parser.CamelCaseMultiPartParser',
+        'djangorestframework_camel_case.parser.CamelCaseJSONParser',
+    ),
 }
 
 # Necessary Setting for Django-Debug-Toolbar
