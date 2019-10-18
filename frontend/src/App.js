@@ -5,6 +5,7 @@ import Container from 'react-bulma-components/lib/components/container';
 import DNavbar from './components/DNavbar';
 import Home from './pages/Home';
 import Login from './pages/Login';
+import Register from './pages/Register';
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
         <Router>
           <Home path="/" />
           <Login path="/login" />
+          <Register path="/register" />
         </Router>
       </Container>
     </>
