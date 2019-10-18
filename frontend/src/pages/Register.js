@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
-import { useState } from 'react';
 import { connect } from 'react-redux';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
@@ -32,10 +31,6 @@ const RegisterSchema = Yup.object().shape({
 
 const Register = ({ auth, register }) => {
   const { loading, error: authError } = auth;
-  const [passwordVisibility, setPasswordVisibility] = useState(false);
-
-  const togglePasswordVisibility = () =>
-    setPasswordVisibility(!passwordVisibility);
 
   return (
     <Card

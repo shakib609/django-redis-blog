@@ -1,6 +1,7 @@
 import { navigate } from '@reach/router';
 
 import client from '../client';
+import { addAlert } from './alertsActions';
 import {
   LOGOUT,
   LOGIN_REQUEST,
@@ -29,6 +30,12 @@ export const login = (username, password) => dispatch => {
             refreshToken: refresh
           }
         });
+        dispatch(
+          addAlert({
+            message: 'Successfully Logged In!',
+            type: 'success'
+          })
+        );
         // Navigate to home page on successful login
         navigate('/', { replace: true });
       }
@@ -62,12 +69,13 @@ export const register = ({
       })
       .then(response => {
         if (response.status === 201) {
-          dispatch({
-            type: REGISTER_SUCCESS,
-            payload: {
-              message: 'Sign Up Successful! Log In to continue.'
-            }
-          });
+          dispatch(
+            addAlert({
+              message: 'Sign Up Successful! Log In to continue.',
+              type: 'success'
+            })
+          );
+          dispatch({ type: REGISTER_SUCCESS });
           navigate('/login', { replace: true });
         }
       });

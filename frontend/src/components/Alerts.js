@@ -1,12 +1,10 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
 import { connect } from 'react-redux';
-import Button from 'react-bulma-components/lib/components/button';
-import Notification from 'react-bulma-components/lib/components/notification';
 
-import { removeAlert } from '../actions/alertsActions';
+import Alert from './Alert';
 
-const Alerts = ({ alerts, removeAlert }) => {
+const Alerts = ({ alerts }) => {
   return (
     <div
       css={css`
@@ -18,18 +16,7 @@ const Alerts = ({ alerts, removeAlert }) => {
       `}
     >
       {alerts.map(alert => (
-        <Notification
-          css={css`
-            padding: 1rem;
-            &:not(:last-child) {
-              margin-bottom: 0.5rem;
-            }
-          `}
-          color={alert.type === 'error' ? 'danger' : alert.type}
-        >
-          {alert.message}
-          <Button remove onClick={() => removeAlert(alert.id)} />
-        </Notification>
+        <Alert alert={alert} key={alert.id} />
       ))}
     </div>
   );
@@ -37,11 +24,4 @@ const Alerts = ({ alerts, removeAlert }) => {
 
 const mapStateToProps = state => ({ alerts: state.alerts });
 
-const mapDispatchToProps = dispatch => ({
-  removeAlert: id => dispatch(removeAlert(id))
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Alerts);
+export default connect(mapStateToProps)(Alerts);
