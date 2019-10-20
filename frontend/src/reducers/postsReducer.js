@@ -8,7 +8,7 @@ const defaultState = {
   count: null,
   previous: null,
   next: null,
-  posts: [],
+  results: [],
   loading: false
 };
 
@@ -24,7 +24,7 @@ const postsReducer = (state = defaultState, action) => {
         count: action.payload.count,
         previous: action.payload.previous,
         next: action.payload.next,
-        posts: [...state.posts, action.payload.results],
+        results: [...state.results, ...action.payload.results],
         loading: false
       };
     case FETCH_POSTS_ERROR:

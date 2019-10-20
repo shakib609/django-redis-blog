@@ -13,12 +13,7 @@ export const fetchPosts = (page = 1) => dispatch => {
     .then(response => {
       dispatch({
         type: FETCH_POSTS_SUCCESS,
-        payload: {
-          posts: response.data.results,
-          count: response.data.count,
-          next: response.data.next,
-          previous: response.data.previous
-        }
+        payload: response.data
       });
     })
     .catch(e => {
