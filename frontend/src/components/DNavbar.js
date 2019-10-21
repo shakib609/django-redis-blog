@@ -13,8 +13,7 @@ const DNavbar = props => {
   return (
     <Navbar
       style={{
-        boxShadow: '1px 1px 3px rgba(0, 0, 0, 0.1)',
-        marginBottom: '1.5rem'
+        boxShadow: '1px 1px 3px rgba(0, 0, 0, 0.1)'
       }}
     >
       <Container>
