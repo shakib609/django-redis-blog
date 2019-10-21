@@ -6,7 +6,7 @@ import {
 import client from '../client';
 import { addAlert } from './alertsActions';
 
-export const fetchPosts = (page = 1) => dispatch => {
+export const fetchPosts = page => dispatch => {
   dispatch({ type: FETCH_POSTS_REQUEST });
   client
     .get('/posts/', { params: { page } })
