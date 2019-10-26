@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
-import { Component } from 'react';
+import { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import Button from 'react-bulma-components/lib/components/button';
 import Columns from 'react-bulma-components/lib/components/columns';
@@ -11,6 +11,7 @@ import PostList from 'components/PostList';
 import TagList from 'components/TagList';
 import { fetchPosts } from 'actions/postsAction';
 import { fetchTags } from 'actions/tagsActions';
+import LoadingIndicator from 'components/LoadingIndicator';
 
 class Home extends Component {
   componentDidMount() {
@@ -34,32 +35,45 @@ class Home extends Component {
         <Columns>
           <Columns.Column size="three-quarters">
             <h3 className="is-size-3 has-text-weight-bold">Recent Posts</h3>
-            <PostList posts={posts.results} />
-            {next !== null && (
-              <p className="has-text-centered">
-                <Button
-                  css={css`
-                    margin-top: 1.5rem;
-                  `}
-                  onClick={() => fetchPosts(pageNum)}
-                >
-                  {posts.loading ? (
-                    <Loader
+            {posts.loading ? (
+              <LoadingIndicator />
+            ) : (
+              <Fragment>
+                <PostList posts={posts.results} />
+                {next !== null && (
+                  <p className="has-text-centered">
+                    <Button
                       css={css`
-                        border-color: #00c4a7;
-                        border-top-color: transparent;
-                        border-right-color: transparent;
+                        margin-top: 1.5rem;
                       `}
-                    />
-                  ) : (
-                    'Load More'
-                  )}
-                </Button>
-              </p>
+                      onClick={() => fetchPosts(pageNum)}
+                    >
+                      {posts.loading ? (
+                        <Loader
+                          css={css`
+                            border-color: #00c4a7;
+                            border-top-color: transparent;
+                            border-right-color: transparent;
+                          `}
+                        />
+                      ) : (
+                        'Load More'
+                      )}
+                    </Button>
+                  </p>
+                )}
+              </Fragment>
             )}
           </Columns.Column>
           <Columns.Column>
-            <TagList tags={tags.results} />
+            {tags.loading ? (
+              <Fragment>
+                <h4 className="has-text-weight-bold">Tags</h4>
+                <LoadingIndicator />
+              </Fragment>
+            ) : (
+              <TagList tags={tags.results} />
+            )}
           </Columns.Column>
         </Columns>
       </Section>
