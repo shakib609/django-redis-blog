@@ -18,3 +18,8 @@ export const REMOVE_ALERT = 'REMOVE_ALERT';
 export const FETCH_POSTS_REQUEST = 'FETCH_POSTS_REQUEST';
 export const FETCH_POSTS_SUCCESS = 'FETCH_POSTS_SUCCESS';
 export const FETCH_POSTS_ERROR = 'FETCH_POSTS_ERROR';
+
+// postsReducer related constants
+export const FETCH_TAGS_REQUEST = 'FETCH_TAGS_REQUEST';
+export const FETCH_TAGS_SUCCESS = 'FETCH_TAGS_SUCCESS';
+export const FETCH_TAGS_ERROR = 'FETCH_TAGS_ERROR';
