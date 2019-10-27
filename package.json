@@ -2,7 +2,7 @@
   "license": "MIT",
   "scripts": {
     "dev:client": "cd frontend && yarn start",
-    "dev:server": "cd backend && poetry run python manage.py runserver",
+    "dev:server": "cd backend && poetry run python manage.py clearcache && poetry run python manage.py runserver",
     "build:client": "cd frontend && yarn build"
   }
 }
