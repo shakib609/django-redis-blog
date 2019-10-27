@@ -35,7 +35,7 @@ class Home extends Component {
         <Columns>
           <Columns.Column size="three-quarters">
             <h3 className="is-size-3 has-text-weight-bold">Recent Posts</h3>
-            {posts.loading ? (
+            {posts.loading && posts.length === 0 ? (
               <LoadingIndicator />
             ) : (
               <Fragment>
