@@ -34,7 +34,7 @@ class TagViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
     lookup_field = 'slug'
-    permission_classes = [IsAuthenticatedOrReadOnly, IsAdminUser]
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
     @method_decorator(cache_page(CACHE_TIMEOUT))
     def list(self, request, *args, **kwargs):
