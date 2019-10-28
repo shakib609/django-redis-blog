@@ -16,7 +16,7 @@ import LoadingIndicator from 'components/LoadingIndicator';
 class Home extends Component {
   componentDidMount() {
     const { fetchPosts, fetchTags, posts, tags } = this.props;
-    if (posts.results.length === 0) fetchPosts(1);
+    if (Object.keys(posts.results).length === 0) fetchPosts(1);
     if (Object.keys(tags.results).length === 0) fetchTags();
   }
 
