@@ -29,9 +29,14 @@ const DNavbar = props => {
           <Navbar.Container position="end">
             <Button.Group>
               {!!auth.accessToken ? (
-                <Button color="primary" onClick={logout}>
-                  <strong>Log out</strong>
-                </Button>
+                <>
+                  <Button color="info" renderAs={Link} to="/create">
+                    <strong>Create Post</strong>
+                  </Button>
+                  <Button color="primary" onClick={logout}>
+                    <strong>Log out</strong>
+                  </Button>
+                </>
               ) : (
                 <>
                   <Button color="primary" renderAs={Link} to="/register">

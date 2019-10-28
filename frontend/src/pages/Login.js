@@ -49,6 +49,7 @@ const Login = ({ auth, login }) => {
                     <Label>Username</Label>
                     <Control>
                       <Input
+                        autoFocus
                         name="username"
                         onBlur={handleBlur}
                         onChange={handleChange}

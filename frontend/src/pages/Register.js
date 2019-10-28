@@ -60,6 +60,7 @@ const Register = ({ auth, register }) => {
                     <Label>Username</Label>
                     <Control>
                       <Input
+                        autoFocus
                         name="username"
                         onBlur={handleBlur}
                         onChange={handleChange}
