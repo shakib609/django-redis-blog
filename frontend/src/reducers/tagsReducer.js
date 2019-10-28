@@ -8,7 +8,7 @@ const defaultState = {
   count: null,
   previous: null,
   next: null,
-  results: [],
+  results: {},
   loading: false
 };
 
@@ -20,11 +20,17 @@ const tagsReducer = (state = defaultState, action) => {
         loading: true
       };
     case FETCH_TAGS_SUCCESS:
+      const payloadTags = { ...state.results };
+      console.log(action.payload.results);
+      action.payload.results.map(tag => {
+        payloadTags[tag.slug] = tag;
+      });
+      console.log(payloadTags);
       return {
         count: action.payload.count,
         previous: action.payload.previous,
         next: action.payload.next,
-        results: [...state.results, ...action.payload.results],
+        results: payloadTags,
         loading: false
       };
     case FETCH_TAGS_ERROR:

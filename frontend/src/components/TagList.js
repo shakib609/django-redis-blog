@@ -8,9 +8,9 @@ const TagList = ({ tags }) => (
     <List.Item>
       <b>Tags</b>
     </List.Item>
-    {tags.map(tag => (
-      <List.Item key={tag.id}>
-        <Link to={`/tags/${tag.slug}`}>{tag.slug}</Link>
+    {Object.keys(tags).map(slug => (
+      <List.Item key={slug}>
+        <Link to={`/tags/${slug}`}>{slug}</Link>
       </List.Item>
     ))}
   </List>
