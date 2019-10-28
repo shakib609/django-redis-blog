@@ -15,17 +15,11 @@ const defaultState = {
 const tagsReducer = (state = defaultState, action) => {
   switch (action.type) {
     case FETCH_TAGS_REQUEST:
-      return {
-        ...state,
-        loading: true
-      };
+      return { ...state, loading: true };
+
     case FETCH_TAGS_SUCCESS:
       const payloadTags = { ...state.results };
-      console.log(action.payload.results);
-      action.payload.results.map(tag => {
-        payloadTags[tag.slug] = tag;
-      });
-      console.log(payloadTags);
+      action.payload.results.map(tag => (payloadTags[tag.slug] = tag));
       return {
         count: action.payload.count,
         previous: action.payload.previous,
@@ -33,11 +27,10 @@ const tagsReducer = (state = defaultState, action) => {
         results: payloadTags,
         loading: false
       };
+
     case FETCH_TAGS_ERROR:
-      return {
-        ...state,
-        loading: false
-      };
+      return { ...state, loading: false };
+
     default:
       return state;
   }
