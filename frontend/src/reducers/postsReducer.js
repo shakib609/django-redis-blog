@@ -1,7 +1,10 @@
 import {
   FETCH_POSTS_ERROR,
   FETCH_POSTS_REQUEST,
-  FETCH_POSTS_SUCCESS
+  FETCH_POSTS_SUCCESS,
+  FETCH_POST_REQUEST,
+  FETCH_POST_ERROR,
+  FETCH_POST_SUCCESS
 } from '../constants';
 
 const defaultState = {
@@ -15,6 +18,7 @@ const defaultState = {
 const postsReducer = (state = defaultState, action) => {
   switch (action.type) {
     case FETCH_POSTS_REQUEST:
+    case FETCH_POST_REQUEST:
       return { ...state, loading: true };
 
     case FETCH_POSTS_SUCCESS:
@@ -28,7 +32,16 @@ const postsReducer = (state = defaultState, action) => {
         loading: false
       };
 
+    case FETCH_POST_SUCCESS:
+      const post = action.payload;
+      return {
+        ...state,
+        results: { ...state.results, [post.slug]: post },
+        loading: false
+      };
+
     case FETCH_POSTS_ERROR:
+    case FETCH_POST_ERROR:
       return { ...state, loading: false };
 
     default:

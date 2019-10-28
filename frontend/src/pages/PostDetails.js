@@ -1,36 +1,23 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { useEffect, useState, Fragment } from 'react';
+import { useEffect, Fragment } from 'react';
 import { connect } from 'react-redux';
 import ReactMarkdown from 'react-markdown';
 import Content from 'react-bulma-components/lib/components/content';
 import Section from 'react-bulma-components/lib/components/section';
 
 import LoadingIndicator from 'components/LoadingIndicator';
-import client from 'client';
+import { fetchPost } from 'actions/postsAction';
 
-const PostDetails = ({ storePost, slug }) => {
-  const [isLoading, setIsLoading] = useState(!storePost);
-  const [post, setPost] = useState(storePost);
-
-  // Fetch Post if not in store.
-  // TODO: Improve this
+const PostDetails = ({ slug, post, isLoading, fetchPost }) => {
   useEffect(() => {
-    if (!post) {
-      client
-        .get(`/posts/${slug}/`)
-        .then(response => {
-          setPost(response.data);
-          setIsLoading(false);
-        })
-        .catch(e => console.error('Something Went Wrong!'));
-    }
-  }, [post, slug]);
+    if (!post) fetchPost();
+  }, [slug, post, fetchPost]);
 
   return (
     <Section>
       <Content>
-        {isLoading ? (
+        {isLoading || !post ? (
           <LoadingIndicator />
         ) : (
           <Fragment>
@@ -47,8 +34,16 @@ const PostDetails = ({ storePost, slug }) => {
   );
 };
 
-const mapStateToProps = ({ posts }, ownProps) => ({
-  storePost: posts.results.find(p => p.slug === ownProps.slug)
+const mapStateToProps = ({ posts }, { slug }) => ({
+  post: posts.results[slug],
+  isLoading: posts.loading
 });
 
-export default connect(mapStateToProps)(PostDetails);
+const mapDispatchToProps = (dispatch, { slug }) => ({
+  fetchPost: () => dispatch(fetchPost(slug))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PostDetails);
