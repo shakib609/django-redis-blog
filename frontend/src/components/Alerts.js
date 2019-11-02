@@ -1,10 +1,12 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import Alert from './Alert';
 
-const Alerts = ({ alerts }) => {
+const Alerts = () => {
+  const alerts = useSelector(state => state.alerts);
+
   return (
     <div
       css={css`
@@ -22,6 +24,4 @@ const Alerts = ({ alerts }) => {
   );
 };
 
-const mapStateToProps = state => ({ alerts: state.alerts });
-
-export default connect(mapStateToProps)(Alerts);
+export default Alerts;

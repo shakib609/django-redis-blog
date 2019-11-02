@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import Card from 'react-bulma-components/lib/components/card';
@@ -16,6 +16,7 @@ import {
 } from 'react-bulma-components/lib/components/form';
 
 import { register } from 'actions/authActions';
+import { useThunkDispatch } from '../utils';
 
 const RegisterSchema = Yup.object().shape({
   username: Yup.string()
@@ -30,8 +31,10 @@ const RegisterSchema = Yup.object().shape({
   lastName: Yup.string()
 });
 
-const Register = ({ auth, register }) => {
+const Register = () => {
+  const auth = useSelector(state => state.auth);
   const { loading, error: authError } = auth;
+  const dispatch = useThunkDispatch();
 
   return (
     <Section>
@@ -52,7 +55,7 @@ const Register = ({ auth, register }) => {
                 lastName: ''
               }}
               validationSchema={RegisterSchema}
-              onSubmit={values => register(values)}
+              onSubmit={values => dispatch(register(values))}
             >
               {({ values, errors, touched, handleBlur, handleChange }) => (
                 <Form>
@@ -106,7 +109,9 @@ const Register = ({ auth, register }) => {
                       {errors.password && touched.password && (
                         <Help color="danger">{errors.password}</Help>
                       )}
-                      {!!authError && <Help color="danger">{authError}</Help>}
+                      {!!authError && (
+                        <Help color="danger">{Object.values(authError)}</Help>
+                      )}
                     </Control>
                   </Field>
                   <Field>
@@ -163,13 +168,4 @@ const Register = ({ auth, register }) => {
   );
 };
 
-const mapStateToProps = state => ({ auth: state.auth });
-
-const mapDispatchToProps = dispatch => ({
-  register: user => dispatch(register(user))
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Register);
+export default Register;

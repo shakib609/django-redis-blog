@@ -1,14 +1,15 @@
 import React from 'react';
 import { Link } from '@reach/router';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Navbar from 'react-bulma-components/lib/components/navbar';
 import Container from 'react-bulma-components/lib/components/container';
 import Button from 'react-bulma-components/lib/components/button';
 
 import { logout } from '../actions/authActions';
 
-const DNavbar = props => {
-  const { auth, logout } = props;
+const DNavbar = () => {
+  const auth = useSelector(state => state.auth);
+  const dispatch = useDispatch();
 
   return (
     <Navbar
@@ -33,7 +34,7 @@ const DNavbar = props => {
                   <Button color="info" renderAs={Link} to="/create">
                     <strong>Create Post</strong>
                   </Button>
-                  <Button color="primary" onClick={logout}>
+                  <Button color="primary" onClick={() => dispatch(logout())}>
                     <strong>Log out</strong>
                   </Button>
                 </>
@@ -55,15 +56,4 @@ const DNavbar = props => {
   );
 };
 
-const mapStateToProps = state => ({
-  auth: state.auth
-});
-
-const mapDispatchToProps = dispatch => ({
-  logout: () => dispatch(logout())
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(DNavbar);
+export default DNavbar;

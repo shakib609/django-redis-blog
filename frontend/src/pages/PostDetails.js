@@ -1,18 +1,23 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { useEffect, Fragment } from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import ReactMarkdown from 'react-markdown';
 import Content from 'react-bulma-components/lib/components/content';
 import Section from 'react-bulma-components/lib/components/section';
 
-import LoadingIndicator from 'components/LoadingIndicator';
 import { fetchPost } from 'actions/postsAction';
+import { useThunkDispatch } from '../utils';
+import LoadingIndicator from 'components/LoadingIndicator';
 
-const PostDetails = ({ slug, post, isLoading, fetchPost }) => {
+const PostDetails = ({ slug }) => {
+  const dispatch = useThunkDispatch();
+  const post = useSelector(state => state.posts.results[slug]);
+  const isLoading = useSelector(state => state.posts.loading);
+
   useEffect(() => {
-    if (!post) fetchPost();
-  }, [slug, post, fetchPost]);
+    if (!post) dispatch(fetchPost(slug));
+  }, [slug, post, dispatch]);
 
   return (
     <Section>
@@ -34,16 +39,4 @@ const PostDetails = ({ slug, post, isLoading, fetchPost }) => {
   );
 };
 
-const mapStateToProps = ({ posts }, { slug }) => ({
-  post: posts.results[slug],
-  isLoading: posts.loading
-});
-
-const mapDispatchToProps = (dispatch, { slug }) => ({
-  fetchPost: () => dispatch(fetchPost(slug))
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(PostDetails);
+export default PostDetails;

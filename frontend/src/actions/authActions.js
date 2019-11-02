@@ -58,33 +58,32 @@ export const register = ({
   lastName
 }) => dispatch => {
   dispatch({ type: REGISTER_REQUEST });
-  try {
-    client
-      .post('/users/', {
-        username,
-        email,
-        password,
-        first_name: firstName,
-        last_name: lastName
-      })
-      .then(response => {
-        if (response.status === 201) {
-          dispatch(
-            addAlert({
-              message: 'Sign Up Successful! Log In to continue.',
-              type: 'success'
-            })
-          );
-          dispatch({ type: REGISTER_SUCCESS });
-          navigate('/login', { replace: true });
+  client
+    .post('/users/', {
+      username,
+      email,
+      password,
+      first_name: firstName,
+      last_name: lastName
+    })
+    .then(response => {
+      if (response.status === 201) {
+        dispatch(
+          addAlert({
+            message: 'Sign Up Successful! Log In to continue.',
+            type: 'success'
+          })
+        );
+        dispatch({ type: REGISTER_SUCCESS });
+        navigate('/login', { replace: true });
+      }
+    })
+    .catch(e => {
+      dispatch({
+        type: REGISTER_ERROR,
+        payload: {
+          error: e.response.data
         }
       });
-  } catch (e) {
-    dispatch({
-      type: REGISTER_ERROR,
-      payload: {
-        error: e.response.data
-      }
     });
-  }
 };

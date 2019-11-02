@@ -30,11 +30,12 @@ const authReducer = (state = defaultState, action) => {
         ...state,
         accessToken,
         refreshToken,
+        error: null,
         loading: false
       };
 
     case REGISTER_SUCCESS:
-      return { ...state, loading: false };
+      return { ...state, error: null, loading: false };
 
     case LOGIN_ERROR:
     case REGISTER_ERROR:

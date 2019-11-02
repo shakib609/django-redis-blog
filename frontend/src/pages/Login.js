@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import Card from 'react-bulma-components/lib/components/card';
@@ -16,6 +16,7 @@ import {
 } from 'react-bulma-components/lib/components/form';
 
 import { login } from '../actions/authActions';
+import { useThunkDispatch } from 'utils';
 
 const LoginSchema = Yup.object().shape({
   username: Yup.string()
@@ -25,8 +26,10 @@ const LoginSchema = Yup.object().shape({
   password: Yup.string().required('This field is Required')
 });
 
-const Login = ({ auth, login }) => {
+const Login = () => {
+  const auth = useSelector(state => state.auth);
   const { loading, error: authError } = auth;
+  const dispatch = useThunkDispatch();
 
   return (
     <Section>
@@ -41,7 +44,9 @@ const Login = ({ auth, login }) => {
             <Formik
               initialValues={{ username: '', password: '' }}
               validationSchema={LoginSchema}
-              onSubmit={values => login(values.username, values.password)}
+              onSubmit={values =>
+                dispatch(login(values.username, values.password))
+              }
             >
               {({ values, errors, touched, handleBlur, handleChange }) => (
                 <Form>
@@ -62,7 +67,9 @@ const Login = ({ auth, login }) => {
                         <Help color="danger">{errors.username}</Help>
                       )}
                       {authError && authError.username && (
-                        <Help color="danger">{authError.username}</Help>
+                        <Help color="danger">
+                          {Object.values(authError.username)}
+                        </Help>
                       )}
                     </Control>
                   </Field>
@@ -84,7 +91,9 @@ const Login = ({ auth, login }) => {
                       )}
 
                       {authError && authError.password && (
-                        <Help color="danger">{authError.password}</Help>
+                        <Help color="danger">
+                          {Object.values(authError.password)}
+                        </Help>
                       )}
 
                       {authError && authError.detail && (
@@ -110,15 +119,4 @@ const Login = ({ auth, login }) => {
   );
 };
 
-const mapStateToProps = state => ({
-  auth: state.auth
-});
-
-const mapDispatchToProps = dispatch => ({
-  login: (username, password) => dispatch(login(username, password))
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Login);
+export default Login;
