@@ -22,7 +22,12 @@ export const FETCH_POST_REQUEST = 'FETCH_POST_REQUEST';
 export const FETCH_POST_SUCCESS = 'FETCH_POST_SUCCESS';
 export const FETCH_POST_ERROR = 'FETCH_POST_ERROR';
 
-// postsReducer related constants
+// tagsReducer related constants
 export const FETCH_TAGS_REQUEST = 'FETCH_TAGS_REQUEST';
 export const FETCH_TAGS_SUCCESS = 'FETCH_TAGS_SUCCESS';
 export const FETCH_TAGS_ERROR = 'FETCH_TAGS_ERROR';
+
+// commentsReducer related constants
+export const FETCH_POST_COMMENTS_REQUEST = 'FETCH_POST_COMMENT_REQUEST';
+export const FETCH_POST_COMMENTS_SUCCESS = 'FETCH_POST_COMMENT_SUCCESS';
+export const FETCH_POST_COMMENTS_ERROR = 'FETCH_POST_COMMENT_ERROR';

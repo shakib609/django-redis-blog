@@ -4,8 +4,12 @@ import {
   FETCH_POSTS_SUCCESS,
   FETCH_POST_REQUEST,
   FETCH_POST_ERROR,
-  FETCH_POST_SUCCESS
+  FETCH_POST_SUCCESS,
+  FETCH_POST_COMMENTS_REQUEST,
+  FETCH_POST_COMMENTS_ERROR,
+  FETCH_POST_COMMENTS_SUCCESS
 } from '../constants';
+import commentsReducer from './commentsReducer';
 
 const defaultState = {
   count: null,
@@ -38,6 +42,15 @@ const postsReducer = (state = defaultState, action) => {
         ...state,
         results: { ...state.results, [post.slug]: post },
         loading: false
+      };
+
+    case FETCH_POST_COMMENTS_ERROR:
+    case FETCH_POST_COMMENTS_REQUEST:
+    case FETCH_POST_COMMENTS_SUCCESS:
+      const { postSlug } = action.payload;
+      return {
+        ...state,
+        [postSlug]: { ...post, comments: commentsReducer(state, action) }
       };
 
     case FETCH_POSTS_ERROR:
