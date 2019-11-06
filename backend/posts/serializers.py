@@ -45,10 +45,7 @@ class PostSerializer(AuthorSerializerMixin, serializers.ModelSerializer):
         post.tags.set(all_tags)
 
     def create(self, validated_data):
-        tags = self.validated_data.get('tags', [])
-        if tags:
-            del validated_data['tags']
-        del validated_data['tags']
+        tags = validated_data.pop('tags')
         post = Post.objects.create(**validated_data)
         self.get_or_create_and_assign_tags(post, tags)
         return post
