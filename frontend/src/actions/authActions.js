@@ -9,12 +9,18 @@ import {
   LOGIN_ERROR,
   REGISTER_REQUEST,
   REGISTER_ERROR,
-  REGISTER_SUCCESS
+  REGISTER_SUCCESS,
+  USER_DETAILS_ERROR,
+  USER_DETAILS_REQUEST,
+  USER_DETAILS_SUCCESS
 } from '../constants';
 
-export const logout = () => ({
-  type: LOGOUT
-});
+export const logout = () => {
+  navigate('/', { replace: true });
+  return {
+    type: LOGOUT
+  };
+};
 
 export const login = (username, password) => dispatch => {
   dispatch({ type: LOGIN_REQUEST });
@@ -30,6 +36,7 @@ export const login = (username, password) => dispatch => {
             refreshToken: refresh
           }
         });
+        dispatch(fetchUserInfo());
         dispatch(
           addAlert({
             message: 'Successfully Logged In!',
@@ -86,4 +93,28 @@ export const register = ({
         }
       });
     });
+};
+
+export const fetchUserInfo = () => (dispatch, getState) => {
+  dispatch({ type: USER_DETAILS_REQUEST });
+  const { accessToken } = getState().auth;
+
+  client
+    .get('/auth_user/', {
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      }
+    })
+    .then(response =>
+      dispatch({
+        type: USER_DETAILS_SUCCESS,
+        payload: response.data
+      })
+    )
+    .catch(e =>
+      dispatch({
+        type: USER_DETAILS_ERROR,
+        error: e.response.data
+      })
+    );
 };
